@@ -60,13 +60,10 @@ src/
 └── contexts/       # Contextos de React
 ```
 
-## Deploy
-
-[Enlace a la aplicación desplegada]
 
 ## Autor
 
-[Tu nombre]
+Lucero Uzuriaga
 
 ## Licencia
 
