@@ -1,16 +1,73 @@
-# React + Vite
+# News Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web para buscar y guardar artículos de noticias.
 
-Currently, two official plugins are available:
+## Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+News Explorer permite a los usuarios buscar noticias de la última semana utilizando palabras clave y guardar sus artículos favoritos en su perfil personal.
 
-## React Compiler
+## Tecnologías utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React** - Biblioteca de JavaScript para construir interfaces de usuario
+- **React Router** - Enrutamiento para aplicaciones React
+- **Vite** - Herramienta de construcción y desarrollo
+- **News API** - API third-party para obtener noticias
+- **BEM** - Metodología de nomenclatura CSS
+- **CSS Grid/Flexbox** - Para layouts responsivos
 
-## Expanding the ESLint configuration
+## Instalación
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Clonar el repositorio:
+```bash
+git clone [tu-repo-url]
+cd news-explorer-frontend
+```
+
+2. Instalar dependencias:
+```bash
+npm install
+```
+
+
+5. Abrir [http://localhost:5173](http://localhost:5173) en tu navegador
+
+## Scripts disponibles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm run preview` - Previsualiza la build de producción
+
+## Funcionalidades
+
+- ✅ Búsqueda de noticias por palabra clave
+- ✅ Visualización de resultados en tarjetas
+- ✅ Botón "Mostrar más" para cargar más resultados
+- ✅ Diseño responsivo (desktop, tablet, mobile)
+- ✅ Preloader durante la carga
+- ✅ Mensajes de error
+- ✅ Almacenamiento en localStorage
+- ⏳ Autenticación de usuarios (próximamente)
+- ⏳ Guardar artículos favoritos (próximamente)
+
+## Estructura del proyecto
+
+```
+src/
+├── components/     # Componentes React
+├── utils/          # Funciones auxiliares y API
+├── images/         # Imágenes y assets
+├── vendor/         # Archivos third-party (fuentes, normalize)
+└── contexts/       # Contextos de React
+```
+
+## Deploy
+
+[Enlace a la aplicación desplegada]
+
+## Autor
+
+[Tu nombre]
+
+## Licencia
+
+Este proyecto fue creado como parte del bootcamp de TripleTen.

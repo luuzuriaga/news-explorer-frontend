@@ -1,0 +1,21 @@
+.saved-news {
+  flex: 1;
+}
+
+.saved-news__empty {
+  padding: 80px 104px;
+  text-align: center;
+}
+
+.saved-news__empty-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 24px;
+  color: #b6bcbf;
+}
+
+@media screen and (max-width: 768px) {
+  .saved-news__empty {
+    padding: 32px 16px;
+  }
+}
