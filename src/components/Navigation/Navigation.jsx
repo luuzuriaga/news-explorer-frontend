@@ -1,11 +1,20 @@
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
-function Navigation({ onLoginClick }) {
-  const isLoggedIn = false; // Cambiar según estado de autenticación
+// ← AGREGAR isMenuOpen y onCloseMenu en los parámetros
+function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
+  const isLoggedIn = false;
+
+  // ← AGREGAR esta función para cerrar menú al hacer click en un link
+  const handleLinkClick = () => {
+    if (onCloseMenu) {
+      onCloseMenu();
+    }
+  };
 
   return (
-    <nav className="navigation">
+    // ← AGREGAR clase condicional
+    <nav className={`navigation ${isMenuOpen ? 'navigation--open' : ''}`}>
       <ul className="navigation__list">
         <li className="navigation__item">
           <NavLink
@@ -13,6 +22,7 @@ function Navigation({ onLoginClick }) {
             className={({ isActive }) =>
               `navigation__link ${isActive ? 'navigation__link--active' : ''}`
             }
+            onClick={handleLinkClick} // ← AGREGAR
           >
             Inicio
           </NavLink>
@@ -24,6 +34,7 @@ function Navigation({ onLoginClick }) {
               className={({ isActive }) =>
                 `navigation__link ${isActive ? 'navigation__link--active' : ''}`
               }
+              onClick={handleLinkClick} // ← AGREGAR
             >
               Artículos guardados
             </NavLink>
@@ -37,7 +48,10 @@ function Navigation({ onLoginClick }) {
           ) : (
             <button
               className="navigation__button navigation__button--login"
-              onClick={onLoginClick}
+              onClick={() => {
+                onLoginClick();
+                handleLinkClick(); // ← AGREGAR para cerrar menú al abrir modal
+              }}
             >
               Iniciar sesión
             </button>

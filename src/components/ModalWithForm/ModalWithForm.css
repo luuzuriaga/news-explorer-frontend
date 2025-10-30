@@ -1,5 +1,4 @@
 .modal {
-
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +42,7 @@
 
 .modal__close {
   position: absolute;
-  top: -10px;   /* Mueve el botón hacia arriba */
+  top: -20px;   /* Mueve el botón hacia arriba */
   right: -30px; /* Mueve el botón hacia la derecha */
   width: 24px;
   height: 24px;
@@ -137,4 +136,33 @@
 
 .modal__switch-link {
   text-decoration: underline;
+}
+
+
+@media screen and (max-width: 768px) {
+
+  .modal__container {
+  position: relative;
+  background: #fff;
+  border-radius: 16px;
+  padding: 34px 36px 28px;
+  max-width: 430px;
+  width: 90%;
+  animation: modal-slide-up 0.3s;
+
+}
+
+  .modal__close {
+  position: absolute;
+  top: -30px;   /* Mueve el botón hacia arriba */
+  right: 5px; /* Mueve el botón hacia la derecha */
+  width: 24px;
+  height: 24px;
+  background: transparent url('../../../src/assets/images/close-icon.svg') center no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
 }

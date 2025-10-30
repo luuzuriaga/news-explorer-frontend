@@ -1,6 +1,7 @@
 .navigation {
   display: flex;
   align-items: center;
+  max-height: 200px;
 }
 
 .navigation__list {
@@ -52,12 +53,53 @@
   color: #1a1b22;
 }
 
+/* ========== ESTILOS MÓVIL ========== */
 @media screen and (max-width: 768px) {
-  .navigation__list {
-    gap: 16px;
+  .navigation {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    background: #1a1b22;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+    padding-top: 80px;
   }
-  
+
+  /* Cuando el menú está abierto */
+  .navigation--open {
+    transform: translateX(0);
+  }
+
+  .navigation__list {
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navigation__item {
+    width: 100%;
+    text-align: center;
+  }
+
   .navigation__link {
-    font-size: 16px;
+    display: block;
+    font-size: 18px;
+    padding: 16px;
+    border-bottom: none;
+    color: #fff;
+  }
+
+  .navigation__link--active {
+    background: rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+  }
+
+  .navigation__button {
+    width: 90%;
+    max-width: 300px;
   }
 }
