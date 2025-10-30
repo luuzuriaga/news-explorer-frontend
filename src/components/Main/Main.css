@@ -11,10 +11,12 @@
   min-height: 576px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .main__hero-content {
   max-width: 608px;
+
 }
 
 .main__title {

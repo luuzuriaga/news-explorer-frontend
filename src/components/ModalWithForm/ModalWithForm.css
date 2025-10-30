@@ -1,4 +1,5 @@
 .modal {
+
   position: fixed;
   top: 0;
   left: 0;
@@ -42,8 +43,8 @@
 
 .modal__close {
   position: absolute;
-  top: 19px;
-  right: 19px;
+  top: -10px;   /* Mueve el botón hacia arriba */
+  right: -30px; /* Mueve el botón hacia la derecha */
   width: 24px;
   height: 24px;
   background: transparent url('../../../src/assets/images/close-icon.svg') center no-repeat;
