@@ -5,7 +5,7 @@ function About() {
     <section className="about">
       <div className="about__container">
         <img
-          src="../../../images/author.jpg"
+          src="../../../src/assets/images/author-photo.jpg"
           alt="Foto del autor"
           className="about__image"
         />

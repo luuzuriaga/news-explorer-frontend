@@ -4,7 +4,7 @@
 
 .main__hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-    url('../../images/image_background.jpg');
+    url('../../../src/assets/images/image_background.jpg');
   background-size: cover;
   background-position: center;
   padding: 160px 104px 80px;

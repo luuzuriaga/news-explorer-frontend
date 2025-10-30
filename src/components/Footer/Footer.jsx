@@ -36,7 +36,7 @@ function Footer() {
                 aria-label="GitHub"
               >
                 <img
-                  src="../../../images/github.png"
+                  src="../../../src/assets/images/github.png"
                   alt="GitHub"
                   className="footer__social-icon"
                 />
@@ -51,7 +51,7 @@ function Footer() {
                 aria-label="Facebook"
               >
                 <img
-                  src="../../../images/fb.png"
+                  src="../../../src/assets/images/facebook.png"
                   alt="Facebook"
                   className="footer__social-icon"
                 />

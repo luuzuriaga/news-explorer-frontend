@@ -46,7 +46,7 @@
   right: 19px;
   width: 24px;
   height: 24px;
-  background: transparent url('../../images/close-icon.svg') center no-repeat;
+  background: transparent url('../../../src/assets/images/close-icon.svg') center no-repeat;
   background-size: contain;
   border: none;
   cursor: pointer;
