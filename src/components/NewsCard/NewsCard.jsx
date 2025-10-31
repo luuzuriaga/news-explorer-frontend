@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import './NewsCard.css';
 
-function NewsCard({ article }) {
-  const [isSaved, setIsSaved] = useState(false);
+function NewsCard({ article, isSaved = false, onDelete, keyword }) {
+  const [showTooltip, setShowTooltip] = useState(false);
   const isLoggedIn = false; // Cambiar según estado de autenticación
 
   const formatDate = (dateString) => {
@@ -13,13 +13,47 @@ function NewsCard({ article }) {
 
   const handleSaveClick = () => {
     if (isLoggedIn) {
-      setIsSaved(!isSaved);
-      // Aquí irá la lógica para guardar/eliminar del backend
+      return;
+
+    }if (isSaved && onDelete) {
+      onDelete(article);
+    } else {
+      handleSaveToStorage();
+
     }
+
+  };
+
+  const handleSaveToStorage = () => {
+    const saved = localStorage.getItem('savedArticles');
+    const savedArticles = saved ? JSON.parse(saved) : [];
+    const isAlreadySaved = savedArticles.some(
+      (savedArticle) => savedArticle.url === article.url
+    );
+
+    if (!isAlreadySaved) {
+      const articleWithKeyword = {...article, keyword: keyword || 'General'};
+      savedArticles.push(articleWithKeyword);
+      localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+      alert('Artículo guardado');
+    }else {
+      const filtered = savedArticles.filter(
+        (savedArticle) => savedArticle.url !== article.url
+
+      );
+
+      localStorage.setItem('savedArticles', JSON.stringify(filtered));
+      alert('Artículo eliminado de guardados');
+    }
+
   };
 
   return (
     <li className="card">
+
+      {isSaved && keyword && (
+        <span className="card__keyword">{keyword}</span>
+      )}
       <a
         href={article.url}
         target="_blank"
@@ -30,6 +64,9 @@ function NewsCard({ article }) {
           src={article.urlToImage || '../../assets/images/placeholder-image.jpg'}
           alt={article.title}
           className="card__image"
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/400x272?text=Sin+imagen';
+          }}
         />
         <div className="card__content">
           <p className="card__date">{formatDate(article.publishedAt)}</p>
@@ -39,17 +76,24 @@ function NewsCard({ article }) {
         </div>
       </a>
       <button
-        className={`card__save-button ${
-          isSaved ? 'card__save-button--active' : ''
-        } ${!isLoggedIn ? 'card__save-button--disabled' : ''}`}
+        className={`card__action-button ${
+          isSaved ? 'card__action-button--delete' : 'card__action-button--save'
+        } ${!isLoggedIn ? 'card__action-button--disabled' : ''}`}
         onClick={handleSaveClick}
+        onMouseEnter={() => !isLoggedIn && setShowTooltip(true)}
+        onMouseLeave={() => setShowTooltip(false)}
         aria-label={isSaved ? 'Eliminar de guardados' : 'Guardar artículo'}
       />
-      {!isLoggedIn && (
+      {!isLoggedIn && showTooltip && (
         <div className="card__tooltip">
           Inicia sesión para guardar artículos
         </div>
       )}
+      {isSaved && isLoggedIn && (
+        <div className="card__tooltip card__tooltip--delete">
+          Quitar de guardados
+        </div>
+        )}
     </li>
   );
 }

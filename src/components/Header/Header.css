@@ -75,6 +75,27 @@
   transform: scale(1.1);
 }
 
+.header--saved .header__logo {
+  color: #1a1b22;
+}
+
+.header--saved .navigation__link {
+  color: #1a1b22;
+}
+
+.header--saved .navigation__link--active {
+  border-bottom-color: #1a1b22;
+}
+
+.header--saved .navigation__button {
+  border-color: #1a1b22;
+  color: #1a1b22;
+}
+
+.header--saved .navigation__button:hover {
+  background: #1a1b22;
+  color: #fff;
+}
 
 @media screen and (max-width: 768px) {
   .header {

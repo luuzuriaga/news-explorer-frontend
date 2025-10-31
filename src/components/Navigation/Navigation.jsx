@@ -1,11 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
-// ← AGREGAR isMenuOpen y onCloseMenu en los parámetros
 function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
-  const isLoggedIn = false;
+  const isLoggedIn = false; // ← Cambiar según estado de autenticación
 
-  // ← AGREGAR esta función para cerrar menú al hacer click en un link
   const handleLinkClick = () => {
     if (onCloseMenu) {
       onCloseMenu();
@@ -13,7 +11,6 @@ function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
   };
 
   return (
-    // ← AGREGAR clase condicional
     <nav className={`navigation ${isMenuOpen ? 'navigation--open' : ''}`}>
       <ul className="navigation__list">
         <li className="navigation__item">
@@ -22,7 +19,7 @@ function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
             className={({ isActive }) =>
               `navigation__link ${isActive ? 'navigation__link--active' : ''}`
             }
-            onClick={handleLinkClick} // ← AGREGAR
+            onClick={handleLinkClick}
           >
             Inicio
           </NavLink>
@@ -34,7 +31,7 @@ function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
               className={({ isActive }) =>
                 `navigation__link ${isActive ? 'navigation__link--active' : ''}`
               }
-              onClick={handleLinkClick} // ← AGREGAR
+              onClick={handleLinkClick}
             >
               Artículos guardados
             </NavLink>
@@ -43,14 +40,15 @@ function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
         <li className="navigation__item">
           {isLoggedIn ? (
             <button className="navigation__button navigation__button--logout">
-              Cerrar sesión
+              Elise
+              <span className="navigation__button-icon"></span>
             </button>
           ) : (
             <button
               className="navigation__button navigation__button--login"
               onClick={() => {
                 onLoginClick();
-                handleLinkClick(); // ← AGREGAR para cerrar menú al abrir modal
+                handleLinkClick();
               }}
             >
               Iniciar sesión

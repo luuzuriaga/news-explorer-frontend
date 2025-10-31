@@ -114,6 +114,104 @@
   z-index: 3;
 }
 
+/* Keyword tag */
+.card__keyword {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  padding: 8px 20px;
+  background: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 500;
+  color: #1a1b22;
+  z-index: 2;
+  text-transform: capitalize;
+}
+
+/* Botones de acción */
+.card__action-button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  z-index: 2;
+  background-size: 24px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card__action-button--save {
+  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21L12 16L5 21V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21Z" stroke="%23B6BCBF" stroke-width="2"/></svg>');
+}
+
+.card__action-button--save:hover {
+  transform: scale(1.1);
+  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21L12 16L5 21V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21Z" stroke="%232F71E5" stroke-width="2"/></svg>');
+}
+
+.card__action-button--delete {
+  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="%23B6BCBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.card__action-button--delete:hover {
+  transform: scale(1.1);
+  background-color: #ff0000;
+  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+}
+
+.card__action-button--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Tooltip */
+.card__tooltip {
+  position: absolute;
+  top: 70px;
+  right: 24px;
+  padding: 12px 16px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 14px;
+  line-height: 18px;
+  color: #1a1b22;
+  white-space: nowrap;
+  z-index: 3;
+  animation: tooltip-fade-in 0.2s;
+}
+
+.card__tooltip--delete {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.card__action-button--delete:hover + .card__tooltip--delete {
+  opacity: 1;
+  visibility: visible;
+}
+
+@keyframes tooltip-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 @media screen and (max-width: 768px) {
   .card__image {
     height: 196px;
@@ -123,4 +221,24 @@
     font-size: 22px;
     line-height: 26px;
   }
+    .card__keyword {
+    top: 16px;
+    left: 16px;
+    padding: 6px 16px;
+    font-size: 12px;
+  }
+
+  .card__action-button {
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+  }
+
+  .card__tooltip {
+    top: 58px;
+    right: 16px;
+    font-size: 12px;
+  }
 }
+

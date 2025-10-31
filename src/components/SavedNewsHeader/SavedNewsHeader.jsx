@@ -16,6 +16,10 @@ function SavedNewsHeader({ userName, articlesCount, articles }) {
       .sort((a, b) => b[1] - a[1])
       .map(entry => entry[0]);
 
+    if (sortedKeywords.length === 0) {
+      return 'Sin palabras clave';
+    }
+
     if (sortedKeywords.length <= 3) {
       return sortedKeywords.join(', ');
     }
@@ -35,7 +39,8 @@ function SavedNewsHeader({ userName, articlesCount, articles }) {
         </h1>
         {articlesCount > 0 && (
           <p className="saved-news-header__keywords">
-            Por palabras clave: <span className="saved-news-header__keywords-bold">
+            Por palabras clave:{' '}
+            <span className="saved-news-header__keywords-bold">
               {getTopKeywords()}
             </span>
           </p>
