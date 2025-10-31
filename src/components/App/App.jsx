@@ -4,7 +4,9 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
-import ModalWithForm from '../ModalWithForm/ModalWithForm';
+import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../RegisterModal/RegisterModal';
+import SuccessModal from '../SuccessModal/SuccessModal';
 import { searchNews } from '../../utils/NewsApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './App.css';
@@ -17,10 +19,11 @@ function App() {
   const [searchError, setSearchError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  
+
   // Estados de modales
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
 
   // Cargar datos de localStorage al montar
   useEffect(() => {
@@ -73,18 +76,56 @@ function App() {
     setVisibleArticles((prev) => prev + 3);
   };
 
-  // Modales
-  const handleOpenLoginModal = () => setIsLoginModalOpen(true);
-  const handleCloseLoginModal = () => setIsLoginModalOpen(false);
-  const handleOpenRegisterModal = () => setIsRegisterModalOpen(true);
-  const handleCloseRegisterModal = () => setIsRegisterModalOpen(false);
+  // Funciones de modales
+  const handleOpenLoginModal = () => {
+    setIsLoginModalOpen(true);
+    setIsRegisterModalOpen(false);
+    setIsSuccessModalOpen(false);
+  };
+
+  const handleCloseLoginModal = () => {
+    setIsLoginModalOpen(false);
+  };
+
+  const handleOpenRegisterModal = () => {
+    setIsRegisterModalOpen(true);
+    setIsLoginModalOpen(false);
+    setIsSuccessModalOpen(false);
+  };
+
+  const handleCloseRegisterModal = () => {
+    setIsRegisterModalOpen(false);
+  };
+
+  const handleOpenSuccessModal = () => {
+    setIsSuccessModalOpen(true);
+    setIsRegisterModalOpen(false);
+  };
+
+  const handleCloseSuccessModal = () => {
+    setIsSuccessModalOpen(false);
+  };
+
+  // Manejar login
+  const handleLogin = (email, password) => {
+    console.log('Login:', email, password);
+    // Aquí irá la lógica de autenticación
+    handleCloseLoginModal();
+  };
+
+  // Manejar registro
+  const handleRegister = (email, password, name) => {
+    console.log('Register:', email, password, name);
+    // Aquí irá la lógica de registro
+    handleCloseRegisterModal();
+    handleOpenSuccessModal();
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
         <Header
           onLoginClick={handleOpenLoginModal}
-          onRegisterClick={handleOpenRegisterModal}
         />
 
         <Routes>
@@ -107,67 +148,30 @@ function App() {
 
         <Footer />
 
+        {/* Modal de Inicio de Sesión */}
         {isLoginModalOpen && (
-          <ModalWithForm
-            title="Iniciar sesión"
-            buttonText="Iniciar sesión"
+          <LoginModal
             onClose={handleCloseLoginModal}
-          >
-            <label className="modal__label">
-              Correo electrónico
-              <input
-                type="email"
-                className="modal__input"
-                placeholder="Introduce tu correo"
-                required
-              />
-            </label>
-            <label className="modal__label">
-              Contraseña
-              <input
-                type="password"
-                className="modal__input"
-                placeholder="Introduce tu contraseña"
-                required
-              />
-            </label>
-          </ModalWithForm>
+            onLogin={handleLogin}
+            onSwitchToRegister={handleOpenRegisterModal}
+          />
         )}
 
+        {/* Modal de Registro */}
         {isRegisterModalOpen && (
-          <ModalWithForm
-            title="Registrarse"
-            buttonText="Registrarse"
+          <RegisterModal
             onClose={handleCloseRegisterModal}
-          >
-            <label className="modal__label">
-              Correo electrónico
-              <input
-                type="email"
-                className="modal__input"
-                placeholder="Introduce tu correo"
-                required
-              />
-            </label>
-            <label className="modal__label">
-              Contraseña
-              <input
-                type="password"
-                className="modal__input"
-                placeholder="Introduce tu contraseña"
-                required
-              />
-            </label>
-            <label className="modal__label">
-              Nombre de usuario
-              <input
-                type="text"
-                className="modal__input"
-                placeholder="Introduce tu nombre"
-                required
-              />
-            </label>
-          </ModalWithForm>
+            onRegister={handleRegister}
+            onSwitchToLogin={handleOpenLoginModal}
+          />
+        )}
+
+        {/* Modal de Éxito */}
+        {isSuccessModalOpen && (
+          <SuccessModal
+            onClose={handleCloseSuccessModal}
+            onSwitchToLogin={handleOpenLoginModal}
+          />
         )}
       </div>
     </CurrentUserContext.Provider>
