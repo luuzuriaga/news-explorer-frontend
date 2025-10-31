@@ -27,7 +27,7 @@ function NewsCard({ article }) {
         className="card__link"
       >
         <img
-          src={article.urlToImage || '/placeholder-image.jpg'}
+          src={article.urlToImage || '../../assets/images/placeholder-image.jpg'}
           alt={article.title}
           className="card__image"
         />

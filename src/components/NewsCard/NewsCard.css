@@ -38,6 +38,7 @@
   font-size: 26px;
   font-weight: 400;
   line-height: 30px;
+  font-family: 'Roboto Slab', serif;
   color: #1a1b22;
 }
 
@@ -46,6 +47,7 @@
   font-size: 16px;
   line-height: 22px;
   color: #1a1b22;
+  font-family: 'Roboto', serif;
 }
 
 .card__source {
@@ -64,8 +66,8 @@
   right: 24px;
   width: 40px;
   height: 40px;
-  background: #fff url('../../images/bookmark-icon.svg') center no-repeat;
-  background-size: 24px;
+  background: #fff url('../../assets/images/bookmark-icon.svg') center no-repeat;
+  background-size: 14px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -75,10 +77,12 @@
 
 .card__save-button:hover {
   transform: scale(1.1);
+  background: #fff url('../../assets/images/bookmark-icon-hover.svg') center no-repeat;
+  background-size: 14px;
 }
 
 .card__save-button--active {
-  background-image: url('../../images/bookmark-filled-icon.svg');
+  background-image: url('../../assets/images/bookmark-filled-icon.svg');
   background-color: #2f71e5;
 }
 

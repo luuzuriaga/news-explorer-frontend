@@ -1,6 +1,6 @@
-const API_KEY = 'TU_API_KEY_AQUI'; // Reemplazar con tu API key
-const BASE_URL = 'https://nomoreparties.co/news/v2'; // Usar proxy de TripleTen para producción
-// const BASE_URL = 'https://newsapi.org/v2'; // Para desarrollo local
+const API_KEY = '248a4a978cfd47d496344bc4c21b49f0'; // Reemplazar con tu API key
+//const BASE_URL = 'https://nomoreparties.co/news/v2'; // Usar proxy de TripleTen para producción
+const BASE_URL = 'https://newsapi.org/v2'; // Para desarrollo local
 
 export const searchNews = (keyword) => {
   const today = new Date();
