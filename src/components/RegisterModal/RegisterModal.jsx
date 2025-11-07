@@ -1,3 +1,4 @@
+//RegisterModal.jsx
 import { useState, useEffect } from 'react';
 import './RegisterModal.css';
 

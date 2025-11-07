@@ -46,6 +46,8 @@
   background: #e8e8e8;
 }
 
+
+
 @media screen and (max-width: 1024px) {
   .news__list {
     grid-template-columns: repeat(2, 1fr);

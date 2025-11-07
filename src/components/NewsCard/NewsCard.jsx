@@ -1,9 +1,12 @@
-import { useState } from 'react';
+//NewsCard.jsx
+import { useState, useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './NewsCard.css';
 
-function NewsCard({ article, isSaved = false, onDelete, keyword }) {
+function NewsCard({ article, isSaved = false, onToggleSave, keyword, showDelete = false }) {
   const [showTooltip, setShowTooltip] = useState(false);
-  const isLoggedIn = false; // Cambiar según estado de autenticación
+  const currentUser = useContext(CurrentUserContext);
+  const isLoggedIn = !!currentUser;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -12,46 +15,29 @@ function NewsCard({ article, isSaved = false, onDelete, keyword }) {
   };
 
   const handleSaveClick = () => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
+      setShowTooltip(true);
       return;
-
-    }if (isSaved && onDelete) {
-      onDelete(article);
-    } else {
-      handleSaveToStorage();
-
     }
-
+    onToggleSave(article);
   };
 
-  const handleSaveToStorage = () => {
-    const saved = localStorage.getItem('savedArticles');
-    const savedArticles = saved ? JSON.parse(saved) : [];
-    const isAlreadySaved = savedArticles.some(
-      (savedArticle) => savedArticle.url === article.url
-    );
-
-    if (!isAlreadySaved) {
-      const articleWithKeyword = {...article, keyword: keyword || 'General'};
-      savedArticles.push(articleWithKeyword);
-      localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
-      alert('Artículo guardado');
-    }else {
-      const filtered = savedArticles.filter(
-        (savedArticle) => savedArticle.url !== article.url
-
-      );
-
-      localStorage.setItem('savedArticles', JSON.stringify(filtered));
-      alert('Artículo eliminado de guardados');
+  // Determinar qué clase usar
+  const getButtonClass = () => {
+    if (showDelete) {
+      // En página de guardados, siempre mostrar botón de eliminar
+      return 'card__action-button--delete';
     }
-
+    // En página principal
+    if (isSaved) {
+      return 'card__action-button--saved'; // Azul cuando está guardado
+    }
+    return 'card__action-button--save'; // Normal cuando no está guardado
   };
 
   return (
     <li className="card">
-
-      {isSaved && keyword && (
+      {keyword && (
         <span className="card__keyword">{keyword}</span>
       )}
       <a
@@ -61,7 +47,7 @@ function NewsCard({ article, isSaved = false, onDelete, keyword }) {
         className="card__link"
       >
         <img
-          src={article.urlToImage || '../../assets/images/placeholder-image.jpg'}
+          src={article.urlToImage || 'https://via.placeholder.com/400x272?text=Sin+imagen'}
           alt={article.title}
           className="card__image"
           onError={(e) => {
@@ -76,24 +62,17 @@ function NewsCard({ article, isSaved = false, onDelete, keyword }) {
         </div>
       </a>
       <button
-        className={`card__action-button ${
-          isSaved ? 'card__action-button--delete' : 'card__action-button--save'
-        } ${!isLoggedIn ? 'card__action-button--disabled' : ''}`}
+        className={`card__action-button ${getButtonClass()} ${!isLoggedIn ? 'card__action-button--disabled' : ''}`}
         onClick={handleSaveClick}
         onMouseEnter={() => !isLoggedIn && setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        aria-label={isSaved ? 'Eliminar de guardados' : 'Guardar artículo'}
+        aria-label={showDelete ? 'Eliminar de guardados' : isSaved ? 'Quitar guardado' : 'Guardar artículo'}
       />
       {!isLoggedIn && showTooltip && (
         <div className="card__tooltip">
           Inicia sesión para guardar artículos
         </div>
       )}
-      {isSaved && isLoggedIn && (
-        <div className="card__tooltip card__tooltip--delete">
-          Quitar de guardados
-        </div>
-        )}
     </li>
   );
 }

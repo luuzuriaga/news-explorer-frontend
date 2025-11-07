@@ -1,3 +1,4 @@
+//SuccessModal.jsx
 import { useEffect } from 'react';
 import './SuccessModal.css';
 

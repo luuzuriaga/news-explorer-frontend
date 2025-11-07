@@ -60,60 +60,6 @@
   letter-spacing: 0.4px;
 }
 
-.card__save-button {
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 40px;
-  height: 40px;
-  background: #fff url('../../assets/images/bookmark-icon.svg') center no-repeat;
-  background-size: 14px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
-  z-index: 2;
-}
-
-.card__save-button:hover {
-  transform: scale(1.1);
-  background: #fff url('../../assets/images/bookmark-icon-hover.svg') center no-repeat;
-  background-size: 14px;
-}
-
-.card__save-button--active {
-  background-image: url('../../assets/images/bookmark-filled-icon.svg');
-  background-color: #2f71e5;
-}
-
-.card__save-button--disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.card__save-button--disabled:hover + .card__tooltip {
-  opacity: 1;
-  visibility: visible;
-}
-
-.card__tooltip {
-  position: absolute;
-  top: 70px;
-  right: 24px;
-  padding: 12px 16px;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 14px;
-  line-height: 18px;
-  color: #1a1b22;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s;
-  z-index: 3;
-}
-
 /* Keyword tag */
 .card__keyword {
   position: absolute;
@@ -143,33 +89,52 @@
   cursor: pointer;
   transition: all 0.3s;
   z-index: 2;
-  background-size: 24px;
+  background-size: 14px;
   background-position: center;
   background-repeat: no-repeat;
 }
 
+/* Botón guardar - estado normal (no guardado) */
 .card__action-button--save {
-  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21L12 16L5 21V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21Z" stroke="%23B6BCBF" stroke-width="2"/></svg>');
+  background-image: url('../../assets/images/bookmark-icon.svg');
 }
 
 .card__action-button--save:hover {
   transform: scale(1.1);
-  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21L12 16L5 21V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21Z" stroke="%232F71E5" stroke-width="2"/></svg>');
+  background-image: url('../../assets/images/bookmark-icon-hover.svg');
 }
 
+/* Botón guardado - FONDO AZUL CON ÍCONO BLANCO */
+.card__action-button--saved {
+  background-color: #ffffff;
+  background-image: url('../../assets/images/bookmark-filled-icon.svg');
+}
+
+.card__action-button--saved:hover {
+  transform: scale(1.1);
+  background-color: #ffffff;
+}
+
+/* Botón eliminar - solo en página de guardados */
 .card__action-button--delete {
-  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="%23B6BCBF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-image: url('../../assets/images/trash.svg');
+  background-size: 20px;
 }
 
 .card__action-button--delete:hover {
   transform: scale(1.1);
-  background-color: #ff0000;
-  background-image: url('data:image/svg+xml;utf8,<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2M10 11v6M14 11v6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+  background-image: url('../../assets/images/trash-hover.svg');
+  background-size: 20px;
 }
 
+/* Estado deshabilitado (usuario no logueado) */
 .card__action-button--disabled {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.card__action-button--disabled:hover {
+  transform: none;
 }
 
 /* Tooltip */
@@ -211,7 +176,6 @@
   }
 }
 
-
 @media screen and (max-width: 768px) {
   .card__image {
     height: 196px;
@@ -221,7 +185,8 @@
     font-size: 22px;
     line-height: 26px;
   }
-    .card__keyword {
+
+  .card__keyword {
     top: 16px;
     left: 16px;
     padding: 6px 16px;
@@ -241,4 +206,3 @@
     font-size: 12px;
   }
 }
-

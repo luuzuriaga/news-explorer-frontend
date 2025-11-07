@@ -1,3 +1,4 @@
+//SearchForm.jsx
 import { useState } from 'react';
 import './SearchForm.css';
 
@@ -7,7 +8,7 @@ function SearchForm({ onSearch }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     if (!keyword.trim()) {
       setError('Por favor, introduzca una palabra clave');
       return;

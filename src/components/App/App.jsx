@@ -1,3 +1,4 @@
+//App.jsx
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Header from '../Header/Header';
@@ -19,6 +20,8 @@ function App() {
   const [searchError, setSearchError] = useState('');
   const [hasSearched, setHasSearched] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [savedArticles, setSavedArticles] = useState([]);
+  const [currentKeyword, setCurrentKeyword] = useState('');
 
   // Estados de modales
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -27,10 +30,20 @@ function App() {
 
   // Cargar datos de localStorage al montar
   useEffect(() => {
-    const savedArticles = localStorage.getItem('articles');
-    if (savedArticles) {
-      setArticles(JSON.parse(savedArticles));
+    const savedArticlesData = localStorage.getItem('articles');
+    if (savedArticlesData) {
+      setArticles(JSON.parse(savedArticlesData));
       setHasSearched(true);
+    }
+
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+      setCurrentUser(JSON.parse(userData));
+    }
+
+    const saved = localStorage.getItem('savedArticles');
+    if (saved) {
+      setSavedArticles(JSON.parse(saved));
     }
   }, []);
 
@@ -40,6 +53,11 @@ function App() {
       localStorage.setItem('articles', JSON.stringify(articles));
     }
   }, [articles]);
+
+  // Guardar artículos guardados en localStorage
+  useEffect(() => {
+    localStorage.setItem('savedArticles', JSON.stringify(savedArticles));
+  }, [savedArticles]);
 
   // Función de búsqueda
   const handleSearch = (keyword) => {
@@ -52,6 +70,7 @@ function App() {
     setSearchError('');
     setHasSearched(true);
     setVisibleArticles(3);
+    setCurrentKeyword(keyword);
 
     searchNews(keyword)
       .then((data) => {
@@ -109,16 +128,52 @@ function App() {
   // Manejar login
   const handleLogin = (email, password) => {
     console.log('Login:', email, password);
-    // Aquí irá la lógica de autenticación
+    // Simulación de login exitoso
+    const user = {
+      email: email,
+      name: email.split('@')[0].charAt(0).toUpperCase() + email.split('@')[0].slice(1)
+    };
+    setCurrentUser(user);
+    localStorage.setItem('currentUser', JSON.stringify(user));
     handleCloseLoginModal();
   };
 
   // Manejar registro
   const handleRegister = (email, password, name) => {
     console.log('Register:', email, password, name);
-    // Aquí irá la lógica de registro
     handleCloseRegisterModal();
     handleOpenSuccessModal();
+  };
+
+  // Manejar logout
+  const handleLogout = () => {
+    setCurrentUser(null);
+    localStorage.removeItem('currentUser');
+  };
+
+  // Manejar guardar/eliminar artículo
+  const handleToggleSave = (article) => {
+    if (!currentUser) {
+      handleOpenLoginModal();
+      return;
+    }
+
+    const isAlreadySaved = savedArticles.some(
+      (saved) => saved.url === article.url
+    );
+
+    if (isAlreadySaved) {
+      const filtered = savedArticles.filter(
+        (saved) => saved.url !== article.url
+      );
+      setSavedArticles(filtered);
+    } else {
+      const articleWithKeyword = {
+        ...article,
+        keyword: currentKeyword || 'General'
+      };
+      setSavedArticles([...savedArticles, articleWithKeyword]);
+    }
   };
 
   return (
@@ -126,6 +181,7 @@ function App() {
       <div className="app">
         <Header
           onLoginClick={handleOpenLoginModal}
+          onLogout={handleLogout}
         />
 
         <Routes>
@@ -140,15 +196,25 @@ function App() {
                 hasSearched={hasSearched}
                 onShowMore={handleShowMore}
                 showMoreButton={visibleArticles < articles.length}
+                savedArticles={savedArticles}
+                onToggleSave={handleToggleSave}
+                currentKeyword={currentKeyword}
               />
             }
           />
-          <Route path="/saved-news" element={<SavedNews />} />
+          <Route
+            path="/saved-news"
+            element={
+              <SavedNews
+                savedArticles={savedArticles}
+                onToggleSave={handleToggleSave}
+              />
+            }
+          />
         </Routes>
 
         <Footer />
 
-        {/* Modal de Inicio de Sesión */}
         {isLoginModalOpen && (
           <LoginModal
             onClose={handleCloseLoginModal}
@@ -157,7 +223,6 @@ function App() {
           />
         )}
 
-        {/* Modal de Registro */}
         {isRegisterModalOpen && (
           <RegisterModal
             onClose={handleCloseRegisterModal}
@@ -166,7 +231,6 @@ function App() {
           />
         )}
 
-        {/* Modal de Éxito */}
         {isSuccessModalOpen && (
           <SuccessModal
             onClose={handleCloseSuccessModal}

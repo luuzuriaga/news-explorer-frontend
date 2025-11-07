@@ -1,13 +1,22 @@
+//Navigation.jsx
 import { NavLink } from 'react-router-dom';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import './Navigation.css';
 
-function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
-  const isLoggedIn = false; // ← Cambiar según estado de autenticación
+function Navigation({ onLoginClick, onLogout, isMenuOpen, onCloseMenu }) {
+  const currentUser = useContext(CurrentUserContext);
+  const isLoggedIn = !!currentUser;
 
   const handleLinkClick = () => {
     if (onCloseMenu) {
       onCloseMenu();
     }
+  };
+
+  const handleLogout = () => {
+    onLogout();
+    handleLinkClick();
   };
 
   return (
@@ -39,8 +48,11 @@ function Navigation({ onLoginClick, isMenuOpen, onCloseMenu }) {
         )}
         <li className="navigation__item">
           {isLoggedIn ? (
-            <button className="navigation__button navigation__button--logout">
-              Elise
+            <button
+              className="navigation__button navigation__button--logout"
+              onClick={handleLogout}
+            >
+              {currentUser.name}
               <span className="navigation__button-icon"></span>
             </button>
           ) : (

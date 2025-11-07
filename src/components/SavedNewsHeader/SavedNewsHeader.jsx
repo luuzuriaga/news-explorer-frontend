@@ -1,3 +1,4 @@
+//SavedNewsHeader.jsx
 import './SavedNewsHeader.css';
 
 function SavedNewsHeader({ userName, articlesCount, articles }) {

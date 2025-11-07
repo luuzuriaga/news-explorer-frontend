@@ -1,10 +1,11 @@
+//Header.jsx
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import Navigation from '../Navigation/Navigation';
-import menuIcon from '../../assets/images/menu.svg'; // ← AGREGAR ESTA LÍNEA
+import menuIcon from '../../assets/images/menu.svg';
 import './Header.css';
 
-function Header({ onLoginClick, onRegisterClick }) {
+function Header({ onLoginClick, onLogout }) {
   const location = useLocation();
   const isMainPage = location.pathname === '/';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -24,14 +25,12 @@ function Header({ onLoginClick, onRegisterClick }) {
           NewsExplorer
         </Link>
 
-        {/* ← BOTÓN CON TU SVG */}
         <button
           className={`header__menu-button ${isMenuOpen ? 'header__menu-button--active' : ''}`}
           onClick={toggleMenu}
           aria-label="Menú"
         >
           {isMenuOpen ? (
-            // Icono X cuando está abierto
             <svg
               className="header__menu-icon"
               width="24"
@@ -46,7 +45,6 @@ function Header({ onLoginClick, onRegisterClick }) {
               />
             </svg>
           ) : (
-            // Tu icono menu.svg cuando está cerrado
             <img
               src={menuIcon}
               alt="Menú"
@@ -57,7 +55,7 @@ function Header({ onLoginClick, onRegisterClick }) {
 
         <Navigation
           onLoginClick={onLoginClick}
-          onRegisterClick={onRegisterClick}
+          onLogout={onLogout}
           isMenuOpen={isMenuOpen}
           onCloseMenu={closeMenu}
         />

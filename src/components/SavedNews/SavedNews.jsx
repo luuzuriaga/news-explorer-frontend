@@ -1,28 +1,13 @@
-import { useState, useEffect } from 'react';
+//SavedNews.jsx
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import NewsCard from '../NewsCard/NewsCard';
 import './SavedNews.css';
 
-function SavedNews() {
-  const [savedArticles, setSavedArticles] = useState([]);
-  const userName = 'Elise'; // Luego vendrá del contexto de usuario
-
-  // Cargar artículos guardados del localStorage
-  useEffect(() => {
-    const saved = localStorage.getItem('savedArticles');
-    if (saved) {
-      setSavedArticles(JSON.parse(saved));
-    }
-  }, []);
-
-  // Función para eliminar artículo
-  const handleDeleteArticle = (articleToDelete) => {
-    const updatedArticles = savedArticles.filter(
-      (article) => article.url !== articleToDelete.url
-    );
-    setSavedArticles(updatedArticles);
-    localStorage.setItem('savedArticles', JSON.stringify(updatedArticles));
-  };
+function SavedNews({ savedArticles, onToggleSave }) {
+  const currentUser = useContext(CurrentUserContext);
+  const userName = currentUser?.name || 'Usuario';
 
   return (
     <main className="saved-news">
@@ -41,7 +26,7 @@ function SavedNews() {
                   key={index}
                   article={article}
                   isSaved={true}
-                  onDelete={handleDeleteArticle}
+                  onToggleSave={onToggleSave}
                   keyword={article.keyword}
                 />
               ))}
